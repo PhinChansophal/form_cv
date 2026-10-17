@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>CV &amp; Cover Letter Builder</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@400;600;700&display=swap">
+    <style>
+         :root {
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            --bg: #f4f5f7;
+            --card: #fff;
+            --tx: #1b1f27;
+            --mu: #667085;
+            --bd: #d9dde5;
+            --pr: #2457d6;
+            --prt: #fff;
+            color-scheme: light
+        }
+        
+        @media (prefers-color-scheme:dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #14171c;
+                --card: #1e222a;
+                --tx: #e8ebf0;
+                --mu: #98a2b3;
+                --bd: #343a46;
+                --pr: #6b95ff;
+                --prt: #0d1117;
+                color-scheme: dark
+            }
+        }
+        
+        :root[data-theme="dark"] {
+            --bg: #14171c;
+            --card: #1e222a;
+            --tx: #e8ebf0;
+            --mu: #98a2b3;
+            --bd: #343a46;
+            --pr: #6b95ff;
+            --prt: #0d1117;
+            color-scheme: dark
+        }
+        
+        html {
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+        
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box
+        }
+        
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--tx);
+            font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Arial, "Noto Sans Khmer", "Khmer OS", "Leelawadee UI", sans-serif
+        }
+        
+        header.top {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: var(--card);
+            border-bottom: 1px solid var(--bd)
+        }
+        
+        h1.app {
+            font-size: 18px;
+            margin: 0
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 6px
+        }
+        
+        button {
+            font: inherit;
+            cursor: pointer;
+            border: 1px solid var(--bd);
+            background: var(--card);
+            color: var(--tx);
+            border-radius: 8px;
+            padding: 7px 12px
+        }
+        
+        button.on,
+        button.pri {
+            background: var(--pr);
+            color: var(--prt);
+            border-color: var(--pr)
+        }
+        
+        main.wrap {
+            display: grid;
+            grid-template-columns: minmax(300px, 420px) 1fr;
+            gap: 16px;
+            padding: 16px;
+            max-width: 1300px;
+            margin: 0 auto
+        }
+        
+        @media (max-width:900px) {
+            main.wrap {
+                grid-template-columns: 1fr
+            }
+        }
+        
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--bd);
+            border-radius: 12px;
+            padding: 14px
+        }
+        
+        .panel h2 {
+            font-size: 14px;
+            margin: 0 0 10px;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--mu)
+        }
+        
+        label {
+            display: block;
+            font-size: 12px;
+            color: var(--mu);
+            margin: 10px 0 3px
+        }
+        
+        input,
+        textarea,
+        select {
+            width: 100%;
+            font: inherit;
+            color: var(--tx);
+            background: var(--bg);
+            border: 1px solid var(--bd);
+            border-radius: 8px;
+            padding: 8px
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 70px
+        }
+        
+        .row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap
+        }
+        
+        .row select {
+            width: auto;
+            flex: 1
+        }
+        
+        .grid {
+            margin-top: 10px;
+            max-height: 320px;
+            overflow-y: auto
+        }
+        
+        .cg {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--mu);
+            margin: 10px 0 4px
+        }
+        
+        .tg {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px
+        }
+        
+        .grid button.th {
+            padding: 3px;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid var(--bd);
+            background: var(--bg);
+            border-radius: 6px
+        }
+        
+        .th svg {
+            width: 100%;
+            height: auto;
+            display: block
+        }
+        
+        .th small {
+            font-size: 10px;
+            color: var(--mu)
+        }
+        
+        .grid button.th.on {
+            border-color: var(--pr);
+            box-shadow: 0 0 0 1px var(--pr)
+        }
+        
+        .hint {
+            font-size: 12px;
+            color: var(--mu);
+            margin: 8px 0 0
+        }
+
+        .hint:empty {
+            display: none
+        }
+        
+        .stage {
+            overflow-x: auto
+        }
+        
+        .paper {
+            background: linear-gradient(to bottom, transparent calc(297mm - 2px), rgba(225, 60, 60, .55) calc(297mm - 2px)) 0 0/100% 297mm repeat-y, #fff;
+            color: #222;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, .25);
+            font-size: 13px;
+            line-height: 1.45;
+            overflow: hidden
+        }
+
+        .paper.exporting {
+            background: #fff !important
+        }
+        
+        .paper h1 {
+            margin: 0;
+            font-size: 2em;
+            line-height: 1.15
+        }
+        
+        .paper h3 {
+            margin: 14px 0 5px;
+            font-size: .85em;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--ac-ink, var(--ac));
+            border-bottom: 1px solid var(--ac);
+            padding-bottom: 2px
+        }
+        
+        .paper p {
+            margin: 3px 0
+        }
+        
+        .paper ul {
+            margin: 3px 0 0;
+            padding-left: 18px
+        }
+        
+        .paper li {
+            margin: 1px 0
+        }
+        
+        .paper .it {
+            margin-bottom: 8px
+        }
+        
+        .ph {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--ac);
+            display: block;
+            margin: 0 auto 10px
+        }
+        
+        .h2 .ph {
+            border-color: #fff
+        }
+        
+        .h2 .ph,
+        .h3 .ph,
+        .tl .ph {
+            margin: 0 0 10px
+        }
+        
+        .g1 aside .ph {
+            border-color: #fff;
+            margin: 0 auto 12px
+        }
+        
+        .paper[data-c="0"] h1 {
+            text-transform: uppercase;
+            letter-spacing: .05em
+        }
+        
+        .paper[data-c="0"] h3 {
+            border-bottom-width: 2px;
+            letter-spacing: .14em
+        }
+        
+        .paper[data-c="1"] h3 {
+            background: var(--ac-soft);
+            color: var(--ac-ink, var(--ac));
+            border: 0;
+            border-left: 3px solid var(--ac);
+            padding: 3px 8px
+        }
+        
+        .paper[data-c="2"] h3 {
+            border: 0;
+            border-left: 4px solid var(--ac);
+            padding: 0 0 0 7px;
+            font-weight: 800
+        }
+        
+        .paper[data-c="3"] h1 {
+            font-weight: 400;
+            letter-spacing: .06em
+        }
+        
+        .paper[data-c="3"] h3 {
+            text-align: center;
+            letter-spacing: .22em;
+            border-bottom-style: dotted
+        }
+        
+        .paper .ti {
+            color: var(--ac-ink, var(--ac));
+            font-weight: 600;
+            font-size: 1.1em
+        }
+        
+        .paper .ct {
+            font-size: .9em;
+            color: #555
+        }
+        
+        .sk {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px
+        }
+        
+        .sk span {
+            border: 1px solid var(--ac);
+            color: var(--ac-ink, var(--ac));
+            border-radius: 99px;
+            padding: 1px 9px;
+            font-size: .9em
+        }
+        
+        .h0 {
+            text-align: center;
+            padding: 30px 36px 0
+        }
+
+        .paper[data-layout="0"] .h0 {
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--ac-soft)
+        }
+
+        .h0+* {}
+        
+        .pad,
+        .body {
+            padding: 0 36px 30px
+        }
+        
+        .g1 {
+            display: grid;
+            grid-template-columns: 34% 1fr;
+            min-height: 297mm
+        }
+        
+        .g1 aside {
+            background: var(--ac-soft);
+            color: #222;
+            padding: 30px 18px
+        }
+        
+        .g1 aside h1 {
+            font-size: 1.6em
+        }
+        
+        .g1 aside .ti {
+            color: var(--ac-ink, var(--ac))
+        }
+
+        .g1 aside .ct {
+            color: #4b5563;
+            overflow-wrap: anywhere
+        }
+        
+        .g1 aside h3 {
+            color: var(--ac-ink, var(--ac));
+            border-color: var(--ac)
+        }
+        
+        .g1 aside .sk span {
+            color: var(--ac);
+            border-color: var(--ac)
+        }
+        
+        .g1 main {
+            padding: 30px 24px
+        }
+        
+        .h2 {
+            background: var(--ac-soft);
+            color: #222;
+            padding: 30px 36px;
+            margin-bottom: 6px;
+            border-bottom: 3px solid var(--ac)
+        }
+
+        .h2 .ti {
+            color: var(--ac-ink, var(--ac))
+        }
+
+        .h2 .ct {
+            color: #4b5563
+        }
+        
+        .h3 {
+            padding: 30px 36px 0
+        }
+        
+        .h3 .in {
+            border-left: 6px solid var(--ac);
+            padding-left: 14px
+        }
+        
+        .g3 {
+            display: grid;
+            grid-template-columns: 1fr 32%;
+            gap: 18px;
+            padding: 0 36px 30px
+        }
+
+        .g3 > :last-child {
+            align-self: start;
+            padding: 12px 14px;
+            background: var(--ac-soft);
+            border-top: 2px solid var(--ac)
+        }
+
+        .tl .h0 {
+            text-align: left
+        }
+
+        .tl .h0 {
+            padding-top: 24px;
+            padding-bottom: 16px;
+            background: var(--ac-soft);
+            border-bottom: 2px solid var(--ac)
+        }
+
+        .tl .it {
+            border-left: 2px solid var(--ac);
+            padding-left: 12px;
+            position: relative
+        }
+        
+        .tl .it::before {
+            content: "";
+            position: absolute;
+            left: -6px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--ac)
+        }
+        
+        .letter .lh {
+            padding: 30px 36px 14px
+        }
+        
+        .letter .lb {
+            padding: 10px 36px 36px
+        }
+        
+        .letter .lb p {
+            margin: 0 0 10px
+        }
+        
+        .lh.c {
+            text-align: center;
+            border-bottom: 3px solid var(--ac);
+            background: var(--ac-soft)
+        }
+
+        .lh.b {
+            background: var(--ac-soft);
+            color: #222;
+            border-bottom: 3px solid var(--ac)
+        }
+
+        .lh.b .ti {
+            color: var(--ac-ink, var(--ac))
+        }
+
+        .lh.b .ct {
+            color: #4b5563
+        }
+        
+        .lh.s {
+            border-left: 6px solid var(--ac);
+            margin: 30px 36px 0;
+            padding: 0 0 0 14px
+        }
+        
+        @media print {
+            body * {
+                visibility: hidden
+            }
+            .paper,
+            .paper * {
+                visibility: visible
+            }
+            .paper {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 210mm;
+                max-width: none;
+                box-shadow: none;
+                background: #fff;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+                zoom: 1!important
+            }
+            @page {
+                size: A4;
+                margin: 0
+            }
+        }
+
+        :root {
+            --bg: #f3f5f9;
+            --bd: #dce2eb;
+            --pr: #3157c8;
+            --panel-shadow: 0 8px 24px rgba(23, 32, 51, .06)
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --panel-shadow: 0 8px 24px rgba(0, 0, 0, .18)
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --panel-shadow: 0 8px 24px rgba(0, 0, 0, .18)
+        }
+
+        body {
+            background:
+                radial-gradient(ellipse at 50% -180px, rgba(49, 87, 200, .10), transparent 60%),
+                var(--bg)
+        }
+
+        header.top {
+            position: relative;
+            gap: 14px 24px;
+            padding: 14px clamp(16px, 3vw, 36px);
+            box-shadow: 0 1px 0 var(--bd), 0 4px 18px rgba(23, 32, 51, .04)
+        }
+
+        h1.app {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 0;
+            font-size: clamp(16px, 1.8vw, 20px);
+            font-weight: 700;
+            letter-spacing: -.025em
+        }
+
+        h1.app::before {
+            content: "";
+            display: inline-grid;
+            place-items: center;
+            flex: 0 0 38px;
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: var(--pr);
+            background-image:
+                linear-gradient(var(--prt), var(--prt)),
+                linear-gradient(var(--prt), var(--prt)),
+                linear-gradient(var(--prt), var(--prt));
+            background-size: 16px 2px, 16px 2px, 11px 2px;
+            background-position: center 13px, center 19px, 13px 25px;
+            background-repeat: no-repeat
+        }
+
+        .top-actions {
+            justify-content: flex-end;
+            gap: 8px
+        }
+
+        button {
+            min-height: 40px;
+            border-radius: 9px;
+            padding: 8px 13px;
+            font-weight: 600;
+            transition: background-color .16s ease, border-color .16s ease, box-shadow .16s ease, transform .16s ease
+        }
+
+        button:hover:not(:disabled) {
+            border-color: var(--pr);
+            box-shadow: 0 2px 8px rgba(49, 87, 200, .12)
+        }
+
+        button:active:not(:disabled) {
+            transform: translateY(1px)
+        }
+
+        button:disabled {
+            cursor: wait;
+            opacity: .7
+        }
+
+        button.on,
+        button.pri {
+            box-shadow: 0 3px 9px rgba(49, 87, 200, .18)
+        }
+
+        :focus-visible {
+            outline: 3px solid rgba(49, 87, 200, .4);
+            outline-offset: 2px
+        }
+
+        main.wrap {
+            grid-template-columns: minmax(310px, 390px) minmax(0, 1fr);
+            gap: 20px;
+            padding: clamp(14px, 2.4vw, 30px);
+            max-width: 1440px
+        }
+
+        .panel {
+            padding: clamp(14px, 1.7vw, 20px);
+            border-radius: 15px;
+            box-shadow: var(--panel-shadow)
+        }
+
+        .panel h2 {
+            margin-bottom: 13px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .09em
+        }
+
+        .type-hint {
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: var(--bg);
+            font-weight: 600
+        }
+
+        label {
+            margin: 13px 0 5px;
+            font-size: 12px;
+            font-weight: 600
+        }
+
+        input,
+        textarea,
+        select {
+            min-width: 0;
+            border-radius: 9px;
+            padding: 9px 11px;
+            transition: border-color .16s ease, box-shadow .16s ease
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--pr);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(49, 87, 200, .12)
+        }
+
+        textarea {
+            min-height: 84px
+        }
+
+        .row {
+            gap: 8px
+        }
+
+        .row select {
+            min-width: 0
+        }
+
+        .grid {
+            max-height: 360px;
+            padding: 2px
+        }
+
+        .tg {
+            gap: 8px
+        }
+
+        .grid button.th {
+            padding: 5px;
+            border-radius: 9px;
+            transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease
+        }
+
+        .grid button.th:hover {
+            transform: translateY(-1px)
+        }
+
+        .th small {
+            margin-top: 2px;
+            font-size: 10px
+        }
+
+        .stage {
+            min-width: 0;
+            padding: 12px;
+            border: 1px solid var(--bd);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, .38)
+        }
+
+        .stage > .hint {
+            margin-bottom: 12px !important;
+            font-weight: 600
+        }
+
+        .paper {
+            transform-origin: top center;
+            box-shadow: 0 8px 28px rgba(16, 24, 40, .18)
+        }
+
+        @media (max-width: 900px) {
+            main.wrap {
+                grid-template-columns: minmax(0, 1fr);
+                max-width: 760px
+            }
+
+            .stage {
+                padding: clamp(8px, 2vw, 14px)
+            }
+        }
+
+        @media (max-width: 640px) {
+            header.top {
+                align-items: stretch;
+                padding: 12px 14px
+            }
+
+            h1.app {
+                font-size: 17px
+            }
+
+            .top-actions {
+                justify-content: stretch
+            }
+
+            .top-actions > .tabs {
+                flex: 1 1 0;
+                min-width: 0
+            }
+
+            .top-actions > .tabs button {
+                flex: 1 1 0;
+                min-width: 0;
+                padding: 8px 9px
+            }
+
+            .top-actions > #print {
+                flex: 1 0 100%
+            }
+
+            main.wrap {
+                gap: 12px;
+                padding: 12px
+            }
+
+            .panel {
+                border-radius: 12px
+            }
+
+            .stage {
+                border-radius: 12px
+            }
+
+            .grid {
+                max-height: 280px
+            }
+        }
+
+        @media (max-width: 420px) {
+            h1.app::before {
+                flex-basis: 34px;
+                width: 34px;
+                height: 34px;
+                border-radius: 9px
+            }
+
+            .tg {
+                grid-template-columns: repeat(4, minmax(0, 1fr))
+            }
+
+            .top-actions > .tabs button {
+                font-size: 13px
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important
+            }
+        }
+
+        .paper {
+            --ac-deep: #19314d
+        }
+
+        .paper[data-layout="0"] .h0 {
+            border-top: 9px solid var(--ac-deep);
+            border-bottom: 1px solid var(--bd);
+            background: linear-gradient(120deg, var(--ac-soft), #fff 72%);
+            padding-top: 22px
+        }
+
+        .paper[data-layout="0"] .h0 h1 {
+            letter-spacing: .025em
+        }
+
+        .paper[data-layout="1"] .g1 aside {
+            background: var(--ac-deep);
+            color: #fff
+        }
+
+        .paper[data-layout="1"] .g1 aside .ti,
+        .paper[data-layout="1"] .g1 aside .ct,
+        .paper[data-layout="1"] .g1 aside h3,
+        .paper[data-layout="1"] .g1 aside .sk span {
+            color: #fff
+        }
+
+        .paper[data-layout="1"] .g1 aside .ct {
+            color: rgba(255, 255, 255, .82)
+        }
+
+        .paper[data-layout="1"] .g1 aside h3 {
+            border-color: rgba(255, 255, 255, .48)
+        }
+
+        .paper[data-layout="1"] .g1 aside .sk span {
+            border-color: rgba(255, 255, 255, .62);
+            background: rgba(255, 255, 255, .08)
+        }
+
+        .paper[data-layout="1"] .g1 aside .ph {
+            border-color: rgba(255, 255, 255, .85)
+        }
+
+        .paper[data-layout="1"] .g1 main {
+            padding-left: 28px
+        }
+
+        .paper[data-layout="2"] .h2 {
+            background: linear-gradient(115deg, var(--ac-deep), var(--ac));
+            color: #fff;
+            border: 0;
+            border-bottom: 5px solid var(--ac-soft)
+        }
+
+        .paper[data-layout="2"] .h2 .ti,
+        .paper[data-layout="2"] .h2 .ct {
+            color: #fff
+        }
+
+        .paper[data-layout="2"] .h2 .ph {
+            border-color: rgba(255, 255, 255, .85)
+        }
+
+        .paper[data-layout="2"] .pad {
+            padding-top: 14px
+        }
+
+        .paper[data-layout="3"] .h3 .in {
+            border-left: 9px solid var(--ac-deep);
+            background: linear-gradient(105deg, var(--ac-soft), #fff 82%);
+            padding: 18px 22px
+        }
+
+        .paper[data-layout="3"] .g3 > :last-child {
+            background: var(--ac-deep);
+            color: #fff;
+            border-top: 0;
+            border-radius: 8px;
+            padding: 14px 16px
+        }
+
+        .paper[data-layout="3"] .g3 > :last-child h3,
+        .paper[data-layout="3"] .g3 > :last-child .sk span {
+            color: #fff;
+            border-color: rgba(255, 255, 255, .66)
+        }
+
+        .paper[data-layout="3"] .g3 > :last-child h3 {
+            border-bottom-color: rgba(255, 255, 255, .45)
+        }
+
+        .paper[data-layout="3"] .g3 > :last-child .ct {
+            color: rgba(255, 255, 255, .82)
+        }
+
+        .paper[data-layout="4"] .tl .h0 {
+            border-top: 7px solid var(--ac-deep);
+            background: linear-gradient(110deg, var(--ac-soft), #fff 76%);
+            padding: 22px 36px 18px
+        }
+
+        .paper[data-layout="4"] .tl .it {
+            border-left: 2px solid var(--ac-deep)
+        }
+
+        .paper[data-layout="4"] .tl .it::before {
+            background: var(--ac-deep);
+            box-shadow: 0 0 0 3px var(--ac-soft)
+        }
+
+        .paper[data-layout="4"] .body > section > h3 {
+            display: inline-block;
+            min-width: 150px;
+            padding: 3px 9px;
+            background: var(--ac-soft);
+            border: 0;
+            border-left: 3px solid var(--ac-deep);
+            color: var(--ac-ink)
+        }
+
+        .paper[data-layout="2"] .letter .lh.b {
+            background: linear-gradient(115deg, var(--ac-deep), var(--ac));
+            border: 0;
+            border-bottom: 5px solid var(--ac-soft);
+            color: #fff
+        }
+
+        .paper[data-layout="2"] .letter .lh.b .ti,
+        .paper[data-layout="2"] .letter .lh.b .ct {
+            color: #fff
+        }
+
+        .paper[data-layout="3"] .letter .lh.s {
+            background: linear-gradient(105deg, var(--ac-soft), #fff 82%);
+            border-left-color: var(--ac-deep);
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px
+        }
+
+        .paper[data-layout="0"] .letter .lh.c {
+            border-top: 9px solid var(--ac-deep);
+            background: linear-gradient(120deg, var(--ac-soft), #fff 72%)
+        }
+
+        .paper[data-layout="1"] .letter .lh {
+            border-left: 9px solid var(--ac-deep);
+            background: var(--ac-soft);
+            padding-left: 22px
+        }
+
+        .paper[data-layout="4"] .letter .lh {
+            background: linear-gradient(110deg, var(--ac-soft), #fff 76%);
+            border-top: 7px solid var(--ac-deep);
+            text-align: left
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+    <header class="top">
+        <h1 class="app" id="happ">CV &amp; Cover Letter Builder</h1>
+        <div class="row top-actions">
+            <div class="tabs"><button id="len" class="on">English</button><button id="lkm">ខ្មែរ</button></div>
+            <div class="tabs"><button id="tcv" class="on">CV</button><button id="tcl">Cover letter</button></div>
+            <button class="pri" id="print">Print / Save PDF</button>
+        </div>
+    </header>
+    <main class="wrap">
+        <div>
+            <div class="panel">
+                <h2><span id="ttpl">Template</span> <span id="tname"></span></h2>
+                <div class="row">
+                    <button id="auto" class="pri" title="Recommend a template based on your details">Auto</button>
+                    <button id="prev">←</button>
+                    <select id="cat"></select>
+                    <select id="flt"></select>
+                    <button id="next">→</button>
+                </div>
+                <div class="grid" id="grid"></div>
+                <p class="hint" id="hint">100 templates = 5 layouts × 20 themes. Your data stays when you switch.</p>
+                <p class="hint" id="autoHint" aria-live="polite"></p>
+                <p class="hint type-hint" id="typeHint" aria-live="polite"></p>
+            </div>
+            <div class="panel" style="margin-top:16px">
+                <h2 id="ftitle">Your details</h2>
+                <div id="form"></div>
+            </div>
+        </div>
+        <div class="stage">
+            <p class="hint" style="text-align:center;margin:0 0 8px">A4 · 210 × 297 mm · red line = page break</p>
+            <div class="paper" id="paper"></div>
+        </div>
+    </main>
+    <script>
+        const LAY = ['Classic', 'Sidebar', 'Banner', 'Split', 'Timeline'];
+        const TYPE_STYLES = [
+            { font: '"Aptos", "Segoe UI", Arial, sans-serif', name: 'Modern Sans', size: 10.5 },
+            { font: '"Aptos", "Segoe UI", Arial, sans-serif', name: 'Modern Sans', size: 9.5 },
+            { font: 'Georgia, "Times New Roman", serif', name: 'Classic Serif', size: 10.5 },
+            { font: '"Aptos", "Segoe UI", Arial, sans-serif', name: 'Modern Sans', size: 9.5 },
+            { font: '"Aptos", "Segoe UI", Arial, sans-serif', name: 'Modern Sans', size: 10.5 }
+        ];
+        const TH = [
+            ['Navy', '#1f3a5f'],
+            ['Crimson', '#b3263a'],
+            ['Forest', '#2f6b3f'],
+            ['Violet', '#6a3fb5'],
+            ['Teal', '#12797a'],
+            ['Amber', '#b86e00'],
+            ['Slate', '#475569'],
+            ['Rose', '#c2457a'],
+            ['Ocean', '#0b69a3'],
+            ['Plum', '#7a2e65'],
+            ['Olive', '#6b7a1f'],
+            ['Coral', '#d65a3a'],
+            ['Indigo', '#3949ab'],
+            ['Graphite', '#2b2b2b'],
+            ['Emerald', '#0c8f62'],
+            ['Rust', '#9a4a1f'],
+            ['Sky', '#2a8fd6'],
+            ['Berry', '#a1224f'],
+            ['Gold', '#8d7410'],
+            ['Mono', '#111111'],
+            ['Cobalt', '#2455a4'],
+            ['Burgundy', '#7e263c'],
+            ['Moss', '#54734b'],
+            ['Lavender', '#7865a8'],
+            ['Petrol', '#176b78'],
+            ['Copper', '#a45a32'],
+            ['Steel', '#526478'],
+            ['Mauve', '#9c5273'],
+            ['Pacific', '#176482'],
+            ['Aubergine', '#56375c'],
+            ['Sage', '#667d5c'],
+            ['Persimmon', '#bd5747'],
+            ['Royal', '#344a8b'],
+            ['Charcoal', '#383d45'],
+            ['Jade', '#24765b'],
+            ['Mahogany', '#75432e'],
+            ['Glacier', '#3680a4'],
+            ['Mulberry', '#812f59'],
+            ['Bronze', '#806529'],
+            ['Ink', '#242a33']
+        ];
+        const TEMPLATE_COUNT = TH.length * LAY.length;
+        const tp = i => {
+            const t = TH[Math.floor(i / 5)];
+            return {
+                l: i % 5,
+                ac: t[1],
+                name: t[0] + ' ' + LAY[i % 5]
+            }
+        };
+        const LK = ['ស្តង់ដារ', 'ចំហៀង', 'បដា', 'ពីរជួរ', 'បន្ទាត់ពេលវេលា'];
+        const I = {
+            en: {
+                app: 'CV & Cover Letter Builder',
+                cv: 'CV',
+                cl: 'Cover letter',
+                print: 'Save PDF',
+                tpl: 'Template',
+                auto: 'Random',
+                autoTitle: 'Choose a different random style without changing your details',
+                autoSelected: 'Random style',
+                all: 'All 200 templates',
+                lay: 'layout (40)',
+                hint: '200 templates = 5 layouts × 40 themes. Your data stays when you switch.',
+                d1: 'Your CV details',
+                d2: 'Cover letter details',
+                photo: 'Profile photo (optional)',
+                rm: 'Remove',
+                profile: 'Profile',
+                experience: 'Experience',
+                education: 'Education',
+                skills: 'Skills',
+                projects: 'Projects',
+                certs: 'Certifications',
+                langs: 'Languages',
+                dear: 'Dear',
+                hm: 'Hiring Manager',
+                sinc: 'Sincerely,',
+                re: 'Re:',
+                ats: 'ATS-friendly (Classic, Timeline)',
+                allc: 'All categories',
+                autoType: 'Auto typography',
+                typeNote: 'Professional font and size adjust to the selected layout.',
+                f: {}
+            },
+            km: {
+                app: 'កម្មវិធីបង្កើតប្រវត្តិរូប (CV) និងលិខិតស្នើសុំការងារ',
+                cv: 'ប្រវត្តិរូប (CV)',
+                cl: 'លិខិតស្នើសុំការងារ',
+                print: 'រក្សាទុក PDF',
+                tpl: 'គំរូ',
+                auto: 'ចៃដន្យ',
+                autoTitle: 'ជ្រើសរើសរចនាប័ទ្មចៃដន្យផ្សេង ដោយមិនប្តូរព័ត៌មានរបស់អ្នក',
+                autoSelected: 'រចនាប័ទ្មចៃដន្យ',
+                all: 'គំរូទាំង ២០០',
+                lay: 'ទម្រង់ (៤០)',
+                hint: 'គំរូ ២០០ = ទម្រង់ ៥ × ស្បែក ៤០។ ទិន្នន័យរបស់អ្នកនៅដដែលពេលប្តូរគំរូ។',
+                d1: 'ព័ត៌មានប្រវត្តិរូបរបស់អ្នក',
+                d2: 'ព័ត៌មានលិខិតស្នើសុំការងារ',
+                photo: 'រូបថតប្រវត្តិរូប (ស្រេចចិត្ត)',
+                rm: 'លុប',
+                profile: 'ប្រវត្តិសង្ខេប',
+                experience: 'បទពិសោធន៍ការងារ',
+                education: 'ការអប់រំ',
+                skills: 'ជំនាញ',
+                projects: 'គម្រោង',
+                certs: 'វិញ្ញាបនបត្រ',
+                langs: 'ភាសា',
+                dear: 'សូមគោរពជូន',
+                hm: 'អ្នកគ្រប់គ្រងជួលបុគ្គលិក',
+                sinc: 'ដោយក្តីគោរព,',
+                re: 'កម្មវត្ថុ៖',
+                ats: 'ស្របតាម ATS (ស្តង់ដារ, បន្ទាត់ពេលវេលា)',
+                allc: 'ប្រភេទទាំងអស់',
+                autoType: 'ទម្រង់អក្សរស្វ័យប្រវត្តិ',
+                typeNote: 'ពុម្ពអក្សរ និងទំហំសម្របតាមទម្រង់ដែលបានជ្រើសរើស។',
+                f: {
+                    name: 'ឈ្មោះពេញ',
+                    title: 'តួនាទី / មុខតំណែង',
+                    email: 'អ៊ីមែល',
+                    phone: 'ទូរស័ព្ទ',
+                    loc: 'ទីតាំង',
+                    summary: 'ប្រវត្តិសង្ខេប',
+                    exp: 'បទពិសោធន៍ (ដកឃ្លាមួយបន្ទាត់រវាងការងារនីមួយៗ៖ បន្ទាត់ដំបូង = តួនាទី, បន្ទាត់បន្ទាប់ = ចំណុចសំខាន់)',
+                    edu: 'ការអប់រំ (ដកឃ្លាមួយបន្ទាត់រវាងធាតុនីមួយៗ)',
+                    skills: 'ជំនាញ (ញែកដោយសញ្ញាក្បៀស)',
+                    link: 'គេហទំព័រ / LinkedIn',
+                    proj: 'គម្រោង (ដកឃ្លាមួយបន្ទាត់រវាងគម្រោងនីមួយៗ)',
+                    certs: 'វិញ្ញាបនបត្រ (មួយបន្ទាត់ក្នុងមួយ)',
+                    langs: 'ភាសា (មួយបន្ទាត់ក្នុងមួយ)',
+                    mgr: 'អ្នកទទួល / អ្នកគ្រប់គ្រងជួលបុគ្គលិក',
+                    company: 'ក្រុមហ៊ុន',
+                    role: 'មុខតំណែងដែលស្នើសុំ',
+                    body: 'អត្ថបទលិខិត (ដកឃ្លាមួយបន្ទាត់ = កថាខណ្ឌថ្មី)'
+                }
+            }
+        };
+        const CAT = [
+            ['Executive', 'អ្នកគ្រប់គ្រង', [0, 6, 13, 19]],
+            ['Corporate', 'សាជីវកម្ម', [8, 12, 4, 16]],
+            ['Modern', 'ទំនើប', [11, 14, 3, 17]],
+            ['Elegant', 'ឆើតឆាយ', [18, 9, 7, 1]],
+            ['Classic', 'បុរាណ', [2, 10, 5, 15]],
+            ['Professional', 'វិជ្ជាជីវៈ', [20, 26, 33, 39]],
+            ['Creative', 'ច្នៃប្រឌិត', [28, 32, 24, 36]],
+            ['Nature', 'ធម្មជាតិ', [31, 34, 23, 37]],
+            ['Warm', 'ពណ៌កក់ក្តៅ', [38, 29, 27, 21]],
+            ['Minimal', 'តិចតួចទំនើប', [22, 30, 25, 35]]
+        ];
+
+        function paperTint(hex, layout) {
+            const channels = hex.slice(1).match(/.{2}/g).map(value => parseInt(value, 16));
+            const strength = [0.88, 0.90, 0.86, 0.92, 0.89][layout] || 0.88;
+            return '#' + channels.map(value => Math.round(value + (255 - value) * strength).toString(16).padStart(2, '0')).join('');
+        }
+
+        function readableAccent(hex) {
+            const channels = hex.slice(1).match(/.{2}/g).map(value => Math.round(parseInt(value, 16) * 0.72));
+            return '#' + channels.map(value => value.toString(16).padStart(2, '0')).join('');
+        }
+
+        function deepAccent(hex) {
+            return readableAccent(hex);
+        }
+
+        function thumb(i) {
+            const t = tp(i),
+                a = t.ac,
+                deep = deepAccent(a),
+                bg = paperTint(a, t.l),
+                R = (x, y, w, h, f) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f||'#cfd4dc'}"/>`;
+            const D = [R(4, 0, 32, 14, bg) + R(4, 0, 32, 2, deep) + R(8, 5, 24, 3, deep) + R(12, 10, 16, 2, a) + R(4, 17, 32, 1.5, a) + R(4, 21, 32, 2) + R(4, 26, 28, 2) + R(4, 31, 32, 1.5, a) + R(4, 35, 30, 2) + R(4, 40, 26, 2),
+                R(0, 0, 13, 52, deep) + R(3, 6, 7, 7, '#fff') + R(17, 6, 18, 2.5, deep) + R(17, 12, 18, 2) + R(17, 20, 18, 1.5, a) + R(17, 24, 20, 2) + R(17, 29, 16, 2) + R(17, 36, 18, 1.5, a) + R(17, 40, 19, 2),
+                R(0, 0, 40, 15, deep) + R(5, 4, 18, 3, '#fff') + R(5, 9, 12, 2, '#fff') + R(5, 20, 30, 1.5, a) + R(5, 24, 30, 2) + R(5, 29, 26, 2) + R(5, 35, 30, 1.5, a) + R(5, 39, 28, 2),
+                R(4, 5, 2, 9, deep) + R(8, 5, 18, 3, deep) + R(8, 10, 12, 2) + R(4, 20, 22, 1.5, a) + R(4, 24, 22, 2) + R(4, 29, 20, 2) + R(4, 35, 22, 2) + R(29, 20, 8, 1.5, a) + R(29, 24, 8, 2) + R(29, 29, 8, 2),
+                R(4, 5, 18, 3, a) + R(4, 10, 12, 2) + R(8, 17, 1, 30, a) + R(6.5, 19, 4, 4, a) + R(12, 19, 22, 2) + R(12, 26, 18, 2) + R(6.5, 33, 4, 4, a) + R(12, 33, 22, 2) + R(12, 40, 16, 2)
+            ];
+            const details = [
+                R(0, 0, 40, 15, bg) + R(0, 0, 40, 2, deep) + R(4, 14, 32, 1, a),
+                '',
+                R(0, 0, 40, 15, deep) + R(0, 14, 40, 1, a),
+                R(27, 17, 13, 35, deep) + R(27, 17, 1, 35, a),
+                R(0, 0, 40, 15, bg) + R(0, 0, 40, 2, deep) + R(0, 14, 40, 1, a)
+            ];
+            return `<svg viewBox="0 0 40 52"><rect width="40" height="52" fill="#fff"/>${details[t.l]}${D[t.l]}</svg>`
+        }
+        async function savePDF() {
+            const b = $('print'),
+                old = b.textContent,
+                p = $('paper');
+            const dl = window.claude ? await claude.use('downloads') : null;
+            if (!dl || !window.html2canvas || !window.jspdf) {
+                window.print();
+                return
+            }
+            b.disabled = true;
+            b.textContent = '…';
+            p.classList.add('exporting');
+            try {
+                p.style.zoom = 1;
+                if (document.fonts && document.fonts.ready) await document.fonts.ready;
+                const cv = await html2canvas(p, {
+                    scale: 2,
+                    backgroundColor: '#fff',
+                    useCORS: true
+                });
+                p.classList.remove('exporting');
+                fit();
+                const W = 210,
+                    H = 297,
+                    pw = cv.width,
+                    ph = Math.round(pw * H / W),
+                    pages = Math.max(1, Math.ceil((cv.height - 4) / ph));
+                const pdf = new window.jspdf.jsPDF({
+                    unit: 'mm',
+                    format: 'a4'
+                });
+                for (let i = 0; i < pages; i++) {
+                    const c = document.createElement('canvas');
+                    c.width = pw;
+                    c.height = ph;
+                    const x = c.getContext('2d'),
+                        h = Math.min(ph, cv.height - i * ph);
+                    x.fillStyle = '#fff';
+                    x.fillRect(0, 0, pw, ph);
+                    x.drawImage(cv, 0, i * ph, pw, h, 0, 0, pw, h);
+                    if (i) pdf.addPage();
+                    pdf.addImage(c.toDataURL('image/jpeg', .95), 'JPEG', 0, 0, W, H);
+                }
+                const nm = String(S.name || 'CV').replace(/[^A-Za-z0-9\u1780-\u17FF]+/g, '_') + (S.doc === 'cv' ? '_CV' : '_Cover_Letter') + '.pdf';
+                await dl.save({
+                    filename: nm,
+                    data: pdf.output('blob')
+                });
+            } catch (e) {
+                if (!e || e.code !== 'declined') alert('Could not save the PDF. ' + ((e && e.message) || ''))
+            } finally {
+                p.classList.remove('exporting');
+                fit();
+                b.disabled = false;
+                b.textContent = old
+            }
+        }
+
+        function fit() {
+            const s = document.querySelector('.stage'),
+                p = $('paper');
+            p.style.zoom = 1;
+            p.style.zoom = Math.min(1, (s.clientWidth - 2) / p.offsetWidth)
+        }
+
+        function randomTemplate() {
+            const currentTheme = Math.floor(S.tpl / LAY.length);
+            const currentLayout = S.tpl % LAY.length;
+            const alternatives = Array.from({ length: TEMPLATE_COUNT }, (_, index) => index)
+                .filter(index => Math.floor(index / LAY.length) !== currentTheme && index % LAY.length !== currentLayout);
+            return alternatives[Math.floor(Math.random() * alternatives.length)];
+        }
+
+        function catOpts() {
+            const v = $('cat').value || 'all';
+            $('cat').innerHTML = `<option value="all">${T('allc')}</option>` + CAT.map((c, i) => `<option value="${i}">${S.lang==='km'?c[1]:c[0]} (20)</option>`).join('');
+            $('cat').value = v
+        }
+
+        function gal() {
+            const c = $('cat').value || 'all',
+                v = $('flt').value || 'all';
+            let h = '';
+            CAT.forEach(([n, k, ths], ci) => {
+                if (c !== 'all' && +c !== ci) return;
+                let b = '';
+                ths.forEach(th => {
+                    for (let l = 0; l < 5; l++) {
+                        const i = th * 5 + l;
+                        if (v === 'all' || (v === 'ats' ? (l === 0 || l === 4) : +v === l)) b += `<button class="th${i===S.tpl?' on':''}" data-i="${i}" title="${tp(i).name}">${thumb(i)}<small>${TH[th][0]}</small></button>`
+                    }
+                });
+                if (b) h += `<div class="cg">${S.lang==='km'?k:n}</div><div class="tg">${b}</div>`
+            });
+            $('grid').innerHTML = h || '—'
+        }
+        const T = k => ((I[S.lang] || I.en)[k]) || I.en[k];
+
+        function fltOpts() {
+            const v = $('flt').value || 'all';
+            $('flt').innerHTML = `<option value="all">${T('all')}</option>` + LAY.map((l, i) => `<option value="${i}">${S.lang==='km'?LK[i]:l} ${T('lay')}</option>`).join('') + `<option value="ats">${T('ats')}</option>`;
+            $('flt').value = v
+        }
+
+        function ui() {
+            document.documentElement.lang = S.lang;
+            $('happ').textContent = T('app');
+            $('auto').textContent = T('auto');
+            $('auto').title = T('autoTitle');
+            $('autoHint').textContent = autoSelection ? `${T('autoSelected')}: ${autoSelection}.` : '';
+            $('tcv').textContent = T('cv');
+            $('tcl').textContent = T('cl');
+            $('print').textContent = T('print');
+            $('ttpl').textContent = T('tpl');
+            $('hint').textContent = T('hint');
+            $('len').classList.toggle('on', S.lang === 'en');
+            $('lkm').classList.toggle('on', S.lang === 'km');
+            fltOpts();
+            catOpts();
+            gal();
+            form();
+            render()
+        }
+        const DEF = {
+            tpl: 0,
+            doc: 'cv',
+            lang: 'en',
+            name: 'Sokha Chan',
+            title: 'Marketing Manager',
+            email: 'sokha@email.com',
+            phone: '+855 12 345 678',
+            loc: 'Phnom Penh, Cambodia',
+            summary: 'Results-driven marketing manager with 6 years of experience growing brands across Southeast Asia.',
+            exp: 'Marketing Manager — Angkor Foods (2022–Present)\nLed a team of 8 and grew online sales by 45%\nLaunched 3 successful regional campaigns\n\nMarketing Executive — Khmer Digital (2019–2022)\nManaged social media for 12 clients\nIncreased average engagement by 60%',
+            edu: 'BBA in Marketing — Royal University of Phnom Penh (2015–2019)',
+            skills: 'SEO, Social Media, Analytics, Leadership, Copywriting',
+            link: 'linkedin.com/in/sokhachan',
+            photo: '',
+            proj: 'Rebrand Campaign — Angkor Foods (2023)\nRedesigned brand identity across 5 markets\nRaised brand awareness by 30%',
+            certs: 'Google Analytics Certified (2023)\nHubSpot Inbound Marketing (2022)',
+            langs: 'Khmer — Native\nEnglish — Fluent',
+            company: 'Bright Future Co.',
+            mgr: 'Ms. Dara Sok',
+            role: 'Senior Marketing Manager',
+            body: 'I am excited to apply for the Senior Marketing Manager position at your company. With six years of experience building campaigns that drive measurable growth, I believe I can contribute to your team from day one.\n\nIn my current role, I lead a team of eight and increased online sales by 45% in one year. I enjoy combining data and creativity to reach the right audience.\n\nThank you for your time and consideration. I would welcome the chance to discuss how I can help Bright Future reach its goals.'
+        };
+        let S;
+        let autoSelection = '';
+        try {
+            S = Object.assign({}, DEF, JSON.parse(localStorage.getItem('cvb') || '{}'))
+        } catch (e) {
+            S = {...DEF
+            }
+        }
+        delete S.fontFace;
+        delete S.fontSize;
+        const save = () => {
+            try {
+                localStorage.setItem('cvb', JSON.stringify(S))
+            } catch (e) {}
+        };
+        const $ = id => document.getElementById(id);
+        const clearAutoSelection = () => {
+            autoSelection = '';
+            $('autoHint').textContent = '';
+        };
+        const esc = s => String(s || '').replace(/[&<>"]/g, c => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;'
+        }[c]));
+        const items = t => String(t || '').split(/\n\s*\n/).filter(b => b.trim()).map(b => {
+                    const l = b.trim().split('\n');
+                    return `<div class="it"><b>${esc(l[0])}</b>${l.length>1?'<ul>'+l.slice(1).map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>':''}</div>`}).join('');
+const ls=t=>String(t||'').split('\n').filter(x=>x.trim()).map(x=>`<p>${esc(x)}</p>`).join('');
+const sec=(t,b)=>b?`<section><h3>${t}</h3>${b}</section>`:'';
+function cv(d,t){
+ const ct=[d.email,d.phone,d.loc,d.link].filter(Boolean).map(esc);
+ const ph=d.photo?`<img class="ph" src="${d.photo}" alt="">`:'';
+ const head=`${ph}<h1>${esc(d.name)}</h1><p class="ti">${esc(d.title)}</p>`;
+ const sum=sec(T('profile'),d.summary?`<p>${esc(d.summary)}</p>`:'');
+ const exp=sec(T('experience'),items(d.exp))+sec(T('projects'),items(d.proj)),edu=sec(T('education'),items(d.edu))+sec(T('certs'),ls(d.certs));
+ let sk=sec(T('skills'),d.skills?`<div class="sk">${d.skills.split(',').map(s=>s.trim()).filter(Boolean).map(s=>`<span>${esc(s)}</span>`).join('')}</div>`:'');
+ sk+=sec(T('langs'),ls(d.langs));
+ switch(t.l){
+  case 1:return `<div class="g1"><aside>${head}<p class="ct">${ct.join('<br>')}</p>${sk}</aside><main>${sum}${exp}${edu}</main></div>`;
+  case 2:return `<div class="h2">${head}<p class="ct">${ct.join(' · ')}</p></div><div class="pad">${sum}${exp}${edu}${sk}</div>`;
+  case 3:return `<div class="h3"><div class="in">${head}<p class="ct">${ct.join(' · ')}</p></div></div><div class="g3"><div>${sum}${exp}</div><div>${edu}${sk}</div></div>`;
+  case 4:return `<div class="tl"><div class="h0">${head}<p class="ct">${ct.join(' · ')}</p></div><div class="body">${sum}${exp}${edu}${sk}</div></div>`;
+  default:return `<div class="h0">${head}<p class="ct">${ct.join(' · ')}</p></div><div class="body">${sum}${exp}${edu}${sk}</div>`;
+ }
+}
+function letter(d,t){
+ const ct=[d.email,d.phone,d.loc].filter(Boolean).map(esc).join(' · ');
+ const hd=`<h1>${esc(d.name)}</h1><p class="ti">${esc(d.title)}</p><p class="ct">${ct}</p>`;
+ const cls=t.l===2?'b':t.l===3?'s':'c';
+ const date=new Date().toLocaleDateString(S.lang==='km'?'km-KH':'en-GB',{day:'numeric',month:'long',year:'numeric'});
+ const paras=String(d.body||'').split(/\n\s*\n/).filter(x=>x.trim()).map(p=>`<p>${esc(p)}</p>`).join('');
+ return `<div class="letter"><div class="lh ${cls}">${hd}</div><div class="lb"><p>${date}</p><p><b>${esc(d.mgr)}</b><br>${esc(d.company)}</p><p><b>${T('re')} ${esc(d.role)}</b></p><p>${T('dear')} ${esc(d.mgr)||T('hm')},</p>${paras}<p>${T('sinc')}<br><b>${esc(d.name)}</b></p></div></div>`;
+}
+function render(){
+ const t=tp(S.tpl),p=$('paper');
+ const typeStyle=TYPE_STYLES[t.l]||TYPE_STYLES[0];
+ const fontFace=S.lang==='km'?`"Noto Sans Khmer","Khmer OS",${typeStyle.font}`:typeStyle.font;
+ p.style.setProperty('--ac',t.ac);p.style.setProperty('--ac-soft',paperTint(t.ac,t.l));p.style.setProperty('--ac-ink',readableAccent(t.ac));p.style.setProperty('--ac-deep',deepAccent(t.ac));p.style.fontFamily=fontFace;p.style.fontSize=`${typeStyle.size}pt`;
+ p.innerHTML=S.doc==='cv'?cv(S,t):letter(S,t);
+ const ci=CAT.findIndex(c=>c[2].includes(Math.floor(S.tpl/5)));p.dataset.c=ci;p.dataset.layout=t.l;$('tname').textContent='· '+t.name+' ('+(S.lang==='km'?CAT[ci][1]:CAT[ci][0])+')';
+ $('autoHint').textContent=autoSelection?`${T('autoSelected')}: ${autoSelection}.`:'';
+ $('typeHint').textContent=`${T('autoType')}: ${typeStyle.name} · ${typeStyle.size} pt. ${T('typeNote')}`;
+ document.querySelectorAll('#grid button').forEach(b=>b.classList.toggle('on',+b.dataset.i===S.tpl));fit();
+ save();
+}
+const F={cv:[['name','Full name'],['title','Job title'],['email','Email'],['phone','Phone'],['loc','Location'],['summary','Profile summary','t'],['exp','Experience (blank line between jobs; first line = title, next lines = bullets)','t8'],['edu','Education (blank line between items)','t'],['skills','Skills (comma separated)','t'],['link','Website / LinkedIn'],['proj','Projects (blank line between projects)','t'],['certs','Certifications (one per line)','t'],['langs','Languages (one per line)','t']],
+cl:[['name','Your name'],['title','Your job title'],['email','Email'],['phone','Phone'],['loc','Location'],['mgr','Hiring manager'],['company','Company'],['role','Position applied for'],['body','Letter text (blank line = new paragraph)','t10']]};
+function form(){
+ $('ftitle').textContent=S.doc==='cv'?T('d1'):T('d2');
+ $('form').innerHTML=(S.doc==='cv'?`<label>${T('photo')}</label><div class="row"><input type="file" id="pf" accept="image/*">${S.photo?'<button id="pr">'+T('rm')+'</button>':''}</div>`:'')+F[S.doc==='cv'?'cv':'cl'].map(([k,l,t])=>`<label>${(I[S.lang]||I.en).f[k]||l}</label>`+(t?`<textarea data-k="${k}" rows="${t.slice(1)||3}">${esc(S[k])}</textarea>`:`<input data-k="${k}" value="${esc(S[k])}">`)).join('');
+}
+function filt(){
+ const v=$('flt').value;
+ [...$('grid').children].forEach(b=>b.style.display=(v==='all'||+v===+b.dataset.i%5)?'':'none');
+}
+function init(){
+ 
+ 
+ $('grid').onclick=e=>{const b=e.target.closest('button');if(b){clearAutoSelection();S.tpl=+b.dataset.i;render()}};
+ $('flt').onchange=gal;$('cat').onchange=gal;
+ $('form').onchange=e=>{if(e.target.id!=='pf')return;const f=e.target.files[0];if(!f)return;clearAutoSelection();const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas'),n=300,s=Math.min(im.width,im.height);c.width=c.height=n;c.getContext('2d').drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,n,n);S.photo=c.toDataURL('image/jpeg',.85);form();render()};im.src=r.result};r.readAsDataURL(f)};
+ $('form').onclick=e=>{if(e.target.id==='pr'){clearAutoSelection();S.photo='';form();render()}};
+ $('auto').onclick=()=>{S.tpl=randomTemplate();autoSelection=tp(S.tpl).name;$('cat').value='all';$('flt').value='all';gal();render()};
+ $('prev').onclick=()=>{clearAutoSelection();S.tpl=(S.tpl+TEMPLATE_COUNT-1)%TEMPLATE_COUNT;render()};
+ $('next').onclick=()=>{clearAutoSelection();S.tpl=(S.tpl+1)%TEMPLATE_COUNT;render()};
+ $('form').oninput=e=>{const k=e.target.dataset.k;if(k){clearAutoSelection();S[k]=e.target.value;render()}};
+ const tab=d=>{clearAutoSelection();S.doc=d;$('tcv').classList.toggle('on',d==='cv');$('tcl').classList.toggle('on',d==='cl');form();render()};
+ $('tcv').onclick=()=>tab('cv');$('tcl').onclick=()=>tab('cl');
+ $('print').onclick=savePDF;
+ $('len').onclick=()=>{S.lang='en';ui()};$('lkm').onclick=()=>{S.lang='km';ui()};
+ window.addEventListener('resize',fit);
+ ui();tab(S.doc);
+}
+init();
+    </script>
+</body>
+
+</html>
